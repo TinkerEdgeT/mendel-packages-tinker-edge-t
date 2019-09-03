@@ -1,0 +1,10 @@
+#!/bin/bash
+
+readonly TEST_DATA="/usr/share/two-camera-ai-demo/test_models"
+readonly TPU_FACE_FILE="${TEST_DATA}/mobilenet_ssd_v2_face_quant_postprocess_edgetpu.tflite"
+readonly LABELS_FILE="${TEST_DATA}/coco_labels.txt"
+
+
+python3 /usr/share/two-camera-ai-demo/detect.py \
+      --model "${TPU_FACE_FILE}" \
+      --labels "${LABELS_FILE}"

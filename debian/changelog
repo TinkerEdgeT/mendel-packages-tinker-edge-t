@@ -1,0 +1,6 @@
+tinker-edge-t (1.0-1) tinker-edge-t; urgency=low
+
+  * Initial release.
+  * Inference two camera by TPU
+
+ -- yi-hsin_hung <yi-hsin_hung@asus.com>  Mon, 2 Sep 2019 14:42:55 -0800
