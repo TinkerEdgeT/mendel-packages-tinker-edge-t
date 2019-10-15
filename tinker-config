@@ -5,10 +5,10 @@ ASK_TO_REBOOT=0
 CMDLINE=/boot/extlinux/extlinux.conf
 HWCONFIG=/boot/hw_intf.conf
 
-TOOL_VERSION="2.0.0"
-TOOL_NAME="Asus Tinker Edge Software Configuration Tool"
-PROJ_NAME="Tinker Edge T"
-USER_NAME="mendel"
+TOOL_VERSION="2.0.1"
+TOOL_NAME="Asus Tinker Edge Software Configuration Tool (tinker-config)"
+PROJ_NAME=""
+USER_NAME=""
 
 get_hostname() {
     cat /etc/hostname | tr -d " \t\n\r"
@@ -450,7 +450,7 @@ do_resolution() {
       value=$(DISPLAY=:0.0 xrandr | sed '1,2d'  | grep '^[ ]*[0-9]' | sed 's/\([0-9]\+\)x\([0-9]\+\)[ ]*\([0-9]\+\).\([0-9]\+\).* / \1x\2  \3.\4Hz/')
 
 
-      FUN=$(whiptail --title "Asus Tinker Edge Software Configuration Tool (tinker-config)" \
+      FUN=$(whiptail --title "$TOOL_NAME" \
       --menu "Choose screen resolution" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT \
       $value "Custom    " "Add and set a custom screen resolution" 3>&1 1>&2 2>&3)
       RET=$?
@@ -1124,7 +1124,7 @@ do_internationalisation_menu() {
   # TODO:
   # Change Keyboard Layout: "Set the keyboard layout to match your keyboard"
   # Change Wi-fi Country: "Set the legal channels used in your country"
-  FUN=$(whiptail --title "Asus Tinker Edge Software Configuration Tool (tinker-config)" --menu "Internationalisation Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "$TOOL_NAME" --menu "Internationalisation Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "I1 Change Locale" "Set up language and regional settings to match your location" \
     "I2 Change Timezone" "Set up timezone to match your location" \
     3>&1 1>&2 2>&3)
@@ -1144,7 +1144,7 @@ do_internationalisation_menu() {
 }
 
 do_interface_menu() {
-  FUN=$(whiptail --title "Asus Tinker Edge Software Configuration Tool (tinker-config)" --menu "Interface Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "$TOOL_NAME" --menu "Interface Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "F1  Audio" "Audio device setting" \
     "F2  Camera" "Camera setting" \
     "F3  SSH" "Enable/Disable remote command line access to your Tinkerboard using SSH" \
@@ -1177,7 +1177,7 @@ do_interface_menu() {
 }
 
 do_advanced_menu() {
-    FUN=$(whiptail --title "Asus Tinker Edge Software Configuration Tool (tinker-config)" --menu "Advanced Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+    FUN=$(whiptail --title "$TOOL_NAME" --menu "Advanced Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
       "A1 Expand Filesystem" "Ensures that all of the SD card storage is available to the OS" \
       "A2 Resolution" "Set a specific screen resolution" \
       "A3 Wlan Verbose Log" "Enable/disable wlan verbose log" \
@@ -1196,7 +1196,7 @@ do_advanced_menu() {
 }
 
 do_boot_menu() {
-  FUN=$(whiptail --title "Asus Tinker Edge Software Configuration Tool (tinker-config)" --menu "Boot Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
+  FUN=$(whiptail --title "$TOOL_NAME" --menu "Boot Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Back --ok-button Select \
     "B1 Desktop / CLI" "Choose whether to boot into a desktop environment or the command line" \
     "B2 Wait for Network at Boot" "Choose whether to wait for network connection during boot" \
     "B3 Splash Screen" "Choose graphical splash screen or text boot" \
@@ -1217,7 +1217,7 @@ do_boot_menu() {
 
 do_about() {
   whiptail --msgbox "\
-Asus Tinker Edge Software Configuration Tool v$TOOL_VERSION \n\nThis tool provides a straight-forward way of doing initial configuration of the Asus Tinker Edge T. Although it can be run at any time, some of the options may have difficulties if you have heavily customised your installation.\
+Asus Tinker Edge Software Configuration Tool v$TOOL_VERSION \n\nThis tool provides a straight-forward way of doing initial configuration of the Asus $PROJ_NAME. Although it can be run at any time, some of the options may have difficulties if you have heavily customised your installation.\
   " 20 70 1
 }
 
@@ -1227,7 +1227,7 @@ Asus Tinker Edge Software Configuration Tool v$TOOL_VERSION \n\nThis tool provid
 if [ "$INTERACTIVE" = True ]; then
   calc_wt_size
 
-  whiptail --msgbox "Welcome to $TOOL_NAME (Experimental).
+  whiptail --msgbox "Welcome to Asus Tinker Edge Software Configuration Tool (Experimental).
 
 This version is based off the popular version from the SBC (single board computer) community and is still in its development stage.
 
@@ -1235,14 +1235,23 @@ Currently some features may not be available as they were not originally designe
 
 " $WT_HEIGHT $WT_WIDTH 1
 
+  PROJ_NAME=$( cat /proc/boardinfo )
+  if [ "$PROJ_NAME" == "Tinker Edge R" ]; then
+    USER_NAME="linaro"
+  elif [ "$PROJ_NAME" == "Tinker Edge T" ]; then
+    USER_NAME="mendel"
+  else
+    exit 1
+  fi
+
   while true; do
     # TODO:
     # This config file is referenced from Tinker board / Tinker board S.
-    # Some items still needs be modified for Tinker Edge T:
+    # Some items still needs be modified for Tinker Edge boards:
     #     Boot Options: "Configure options for start-up"
     #     Interfacing Options: "Configure connections to peripherals"
     #     Advanced Options: "Configure advanced settings"
-    FUN=$(whiptail --title "$TOOL_NAME (tinker-config)" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
+    FUN=$(whiptail --title "$TOOL_NAME" --menu "Setup Options" $WT_HEIGHT $WT_WIDTH $WT_MENU_HEIGHT --cancel-button Finish --ok-button Select \
       "1 Hostname" "Set the visible name for this Tinker Board on a network" \
       "2 Change User Password" "Change password for the default user ($USER_NAME)" \
       "3 Internationalisation Options" "Set up language and regional settings to match your location" \
