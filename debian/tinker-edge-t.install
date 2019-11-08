@@ -2,3 +2,4 @@ two-camera-ai-demo /usr/share/
 two-camera-ai-demo/edgetpu_face_detect /usr/bin/
 two-camera-ai-demo/edgetpu_object_detect /usr/bin/
 tinker-config /usr/bin/
+etc /

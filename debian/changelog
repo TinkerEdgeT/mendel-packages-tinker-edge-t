@@ -1,3 +1,8 @@
+tinker-edge-t (1.0-2) tinker-edge-t; urgency=low
+
+  * Hold the related packages about tinker board T
+
+ -- yi-hsin_hung <yi-hsin_hung@asus.com>  Mon, 2 Sep 2019 14:42:55 -0800
 tinker-edge-t (1.0-1) tinker-edge-t; urgency=low
 
   * Initial release.
