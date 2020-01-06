@@ -1,3 +1,9 @@
+tinker-edge-t (1.0-3) tinker-edge-t; urgency=low
+
+  1. Add project-posenet to Tinker board T for demo
+     Reference: https://github.com/google-coral/project-posenet
+  2. Install python3-edgetpu_12.1-1_arm64.deb at first booting
+
 tinker-edge-t (1.0-2) tinker-edge-t; urgency=low
 
   * Hold the related packages about tinker board T

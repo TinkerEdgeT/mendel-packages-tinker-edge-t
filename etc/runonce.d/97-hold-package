@@ -4,3 +4,4 @@ apt-mark hold linux-image-4.9.51-imx
 apt-mark hold weston-imx
 apt-mark hold uboot-imx
 apt-mark manual tinker-edge-t
+dpkg -i /usr/share/project-posenet/python3-edgetpu_12.1-1_arm64.deb
