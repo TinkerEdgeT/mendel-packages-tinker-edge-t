@@ -78,7 +78,7 @@ a keypoint has been detected.
 
 ## Examples in this repo
 
-NOTE: PoseNet relies on the latest Coral API (2.11.1) - please update your
+NOTE: PoseNet relies on the latest Coral API (2.12.2) and for the Dev Board the latest system image - please update your
 system before running these examples. For more information on updating see:
   * For [Coral DevBoard](https://coral.withgoogle.com/docs/dev-board/get-started/#update-the-mendel-software)
   * For [USB Accelerator](https://coral.withgoogle.com/docs/accelerator/get-started/#set-up-on-linux-or-raspberry-pi)
@@ -208,7 +208,7 @@ from pose_engine import PoseEngine
 pil_image = Image.open('couple.jpg')
 pil_image.resize((641, 481), Image.NEAREST)
 
-engine = PoseEngine('models/posenet_mobilenet_v1_075_481_641_quant_decoder_edgetpu.tflite')
+engine = PoseEngine('models/mobilenet/posenet_mobilenet_v1_075_481_641_quant_decoder_edgetpu.tflite')
 poses, inference_time = engine.DetectPosesInImage(np.uint8(pil_image))
 print('Inference time: %.fms'%inference_time)
 

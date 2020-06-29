@@ -1,8 +1,6 @@
 #!/bin/bash
 
-apt-mark hold linux-image-4.9.51-imx
+apt-mark hold linux-image-4.14.98-imx
 apt-mark hold weston-imx
 apt-mark hold uboot-imx
 apt-mark manual tinker-edge-t
-dpkg -i /usr/share/project-posenet/libedgetpu1-std_13.0_arm64.deb
-dpkg -i /usr/share/project-posenet/python3-edgetpu_13.0_arm64.deb

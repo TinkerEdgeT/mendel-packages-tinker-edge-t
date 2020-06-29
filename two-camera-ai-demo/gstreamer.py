@@ -70,14 +70,14 @@ def run_pipeline(user_function,
             t. ! {leaky_q} ! glfilterbin filter=glcolorscale
                ! {dl_caps} ! videoconvert ! {sink_caps} ! {sink_element}
             t. ! {leaky_q} ! glfilterbin filter=glcolorscale
-               ! rsvgoverlay name=overlay ! waylandsink
+               ! rsvgoverlay name=overlay ! waylandsink fullscreen=false
         """
         SRC_CAPS1 = 'video/x-raw,format=YUY2,width={width},height={height},framerate=30/1'
         PIPELINE1 += """ ! glupload ! tee name=t1
             t1. ! {leaky_q} ! glfilterbin filter=glcolorscale
                ! {dl_caps} ! videoconvert ! {sink_caps} ! {sink_element}
             t1. ! {leaky_q} ! glfilterbin filter=glcolorscale
-               ! rsvgoverlay name=overlay1 ! waylandsink
+               ! rsvgoverlay name=overlay1 ! waylandsink fullscreen=false
         """
         
     else:

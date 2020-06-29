@@ -54,7 +54,7 @@ class Keypoint:
         self.score = score
 
     def __repr__(self):
-        return 'Keypoint(<{}>, {}, {})'.format(KEYPOINTS[self.k], self.yx, self.score)
+        return 'Keypoint(<{}>, {}, {})'.format(self.k, self.yx, self.score)
 
 
 class Pose:
@@ -100,7 +100,7 @@ class PoseEngine(BasicEngine):
         self._output_offsets = [0]
         for size in self.get_all_output_tensors_sizes():
             offset += size
-            self._output_offsets.append(offset)
+            self._output_offsets.append(int(offset))
 
     def DetectPosesInImage(self, img):
         """Detects poses in a given image.
@@ -122,7 +122,10 @@ class PoseEngine(BasicEngine):
         assert (img.shape == tuple(self._input_tensor_shape[1:]))
 
         # Run the inference (API expects the data to be flattened)
-        inference_time, output = self.RunInference(img.flatten())
+        return self.ParseOutput(self.run_inference(img.flatten()))
+
+    def ParseOutput(self, output):
+        inference_time, output = output
         outputs = [output[i:j] for i, j in zip(self._output_offsets, self._output_offsets[1:])]
 
         keypoints = outputs[0].reshape(-1, len(KEYPOINTS), 2)

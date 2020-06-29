@@ -1,12 +1,17 @@
 Source: tinker-edge-t
 Maintainer: yi-hsin_hung <yi-hsin_hung@asus.com>
 Build-Depends: debhelper (>= 9)
-Standards-Version: 1.0.0
-Homepage: https://aiyprojects.withgoogle.com/
+Section: misc
+Priority: optional
+Standards-Version: 3.9.8
+Homepage: https://coral.withgoogle.com/
 
 Package: tinker-edge-t
 Architecture: all
+Section: misc
+Priority: optional
 Depends: ${misc:Depends},
          python3-edgetpuvision
 Description: Tinker board T demo application
+	and the related packages.
 
